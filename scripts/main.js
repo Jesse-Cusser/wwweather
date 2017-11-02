@@ -1,23 +1,50 @@
-//default APIkey - 90c2aa55436224d6c901df2dfcaf23ed
-//FCC APIkey - 73f3dd10604b37faaf433b324707b0cb
+
 
 $(document).ready(function(){
 
-
 	if(navigator.geolocation){
 		navigator.geolocation.getCurrentPosition(function(position){
-			$("#data").html("latitude: " + position.coords.latitude
-			+ "<br>longitude: " + position.coords.longitude);
+
+
+			var lat  = position.coords.latitude;
+			var long = position.coords.longitude;
+
+			var url = "http://api.openweathermap.org/data/2.5/weather?&id=2172797";
+			var apiKey = "APPID=90c2aa55436224d6c901df2dfcaf23ed"
+			var api = url + "&" + apiKey + "&lat=" + lat + "&lon=" + long;
+ 
+			
+
+			$("#data").html("latitude: " + lat
+			+ "<br>longitude: " + long);
+
+		
+
+
+		$.getJSON(api, function(data){
+		//JSON call for open weather api
+
+		var weatherType = data.weather[0].description;
+		var temp = data.main.temp;
+		var windSpeed = data.wind.speed;
+		var city =data.name;
+		alert(city + " " + weatherType+ " " + "temp" );
+
+		alert(lat);
+		alert(city);
+
+	});
 		});
+
+
+
+
 	}
 
 
-	var api = "http://api.openweathermap.org/data/2.5/weather?id=2172797&appid=90c2aa55436224d6c901df2dfcaf23ed";
+	
 
-	$.getJSON(api, function(data){
-		//JSON call for open weather api
-
-	});
+	
 
 
 
